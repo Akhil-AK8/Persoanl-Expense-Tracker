@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Expense Tracker</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styled.css">
 </head>
 <body>
     <header>
         <h1>Personal Expense Tracker</h1>
         <nav>
             <ul>
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Add Expense</a></li>
-                <li><a href="#">Reports</a></li>
-                <li><a href="#">Settings</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="add expense.html">Add Expense</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="settings.html">Settings</a></li>
             </ul>
         </nav>
     </header>
@@ -29,11 +30,11 @@
                 </div>
                 <div class="summary-item">
                     <h3>Total Income</h3>
-                    <p>0.00/-</p>
+                    <p>40000.00/-</p>
                 </div>
                 <div class="summary-item">
                     <h3>Remaining Budget</h3>
-                    <p>0.00/-</p>
+                    <p>40000.00/-</p>
                 </div>
             </div>
         </section>
@@ -64,10 +65,23 @@
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Personal Expense Tracker</p>
-    </footer>
-    <script src="scripting.js" defer></script>
+    <button id="logout">Logout</button>
 
+    <script>
+        // Redirect to login if not logged in
+        document.addEventListener("DOMContentLoaded", function () {
+            if (!sessionStorage.getItem("loggedInUser")) {
+                window.location.href = "Login.html";
+            }
+        });
+
+        // Logout functionality
+        document.getElementById("logout").addEventListener("click", function () {
+            sessionStorage.removeItem("loggedInUser");
+            window.location.href = "Login.html";
+        });
+    </script>
+
+    <script src="scripting.js" defer></script>
 </body>
 </html>

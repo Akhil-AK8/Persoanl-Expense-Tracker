@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Personal Expense Tracker</title>
+    <link rel="stylesheet" href="styledd.css">
+</head>
+<body>
+    <header>
+        <h1>Settings</h1>
+        <nav>
+            <ul>
+                <li><a href="frontend.html">Back to Tracker</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="settings">
+            <h2>Application Settings</h2>
+
+            <!-- Expense Refresh Interval (Months) -->
+            <label for="refresh-interval">Expense Refresh Interval (Months):</label>
+            <select id="refresh-interval">
+                <option value="1">1 Month</option>
+                <option value="2">2 Months</option>
+                <option value="3">3 Months</option>
+                <option value="6">6 Months</option>
+                <option value="12">12 Months</option>
+            </select>
+            <button onclick="saveSettings()">Save Interval</button>
+
+            <!-- Currency Selection -->
+            <label for="currency">Select Currency:</label>
+            <select id="currency">
+                <option value="INR">₹ INR</option>
+                <option value="USD">$ USD</option>
+                <option value="EUR">€ EUR</option>
+            </select>
+            <button onclick="saveSettings()">Save Currency</button>
+
+            <!-- Clear Expenses -->
+            <button id="clear-expenses" style="background-color: red;">Clear All Expenses</button>
+            <button id="logout">Logout</button>
+        </section>
+    </main>
+
+    <script>
+        // Load saved settings on page load
+        document.addEventListener("DOMContentLoaded", function () {
+            let savedInterval = localStorage.getItem("refreshInterval") || "1";
+            document.getElementById("refresh-interval").value = savedInterval;
+
+            let savedCurrency = localStorage.getItem("currency") || "INR";
+            document.getElementById("currency").value = savedCurrency;
+        });
+
+        // Save settings
+        function saveSettings() {
+            let interval = document.getElementById("refresh-interval").value;
+            localStorage.setItem("refreshInterval", interval);
+
+            let currency = document.getElementById("currency").value;
+            localStorage.setItem("currency", currency);
+
+            alert("Settings saved successfully!");
+        }
+
+        // Clear all expenses (Dummy Function)
+        document.getElementById("clear-expenses").addEventListener("click", function () {
+            if (confirm("Are you sure you want to delete all expenses?")) {
+                fetch('http://127.0.0.1:5000/delete_all_expenses', { method: 'DELETE' })
+                    .then(response => response.json())
+                    .then(data => alert(data.message))
+                    .catch(error => console.error("Error:", error));
+            }
+        });
+    </script>
+</body>
+</html>
